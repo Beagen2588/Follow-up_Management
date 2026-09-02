@@ -1,0 +1,173 @@
+PUT http://localhost:8080/api/patients/1
+Content-Type: application/json
+
+{
+  "firstName": "A-aron",
+  "lastName": "Smitty",
+  "email": "newemail@example.com",
+  "phone": "555-111-2222"
+}
+
+###
+POST http://localhost:8080/api/follow-up-requests
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "departmentId": 1,
+  "reason": "Follow-up appointment",
+  "dueDate": "2026-09-01",
+  "status": "Pending",
+  "notes": "Patient needs follow-up"
+}
+
+###
+POST http://localhost:8080/api/departments
+Content-Type: application/json
+
+{
+  "name": "Cardiology"
+}
+###
+PUT http://localhost:8080/api/follow-up-requests/1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "departmentId": 1,
+  "reason": "Updated follow-up appointment",
+  "dueDate": "2026-09-15",
+  "status": "Completed",
+  "notes": "Patient completed the follow-up appointment"
+}
+###
+GET http://localhost:8080/api/follow-up-requests
+###
+GET http://localhost:8080/api/follow-up-requests/search?status=Pending
+###
+DELETE http://localhost:8080/api/follow-up-requests/4
+
+###
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "userName": "admin1",
+  "password": "Password123!",
+  "role": "ADMIN",
+  "active": true
+}
+###
+GET http://localhost:8080/api/audit-logs
+###
+PUT http://localhost:8080/api/follow-up-requests/5?userId=1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "departmentId": 1,
+  "reason": "Updated follow-up appointment",
+  "dueDate": "2026-09-14",
+  "status": "Completed",
+  "notes": "Testing automatic audit logging"
+}
+###
+GET http://localhost:8080/api/audit-logs/search/user?userName=admin1
+###
+GET http://localhost:8080/api/audit-logs/search/date?start=2026-08-24T00:00:00&end=2026-08-24T23:59:59
+###
+
+POST http://localhost:8080/api/follow-up-requests?userId=1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "departmentId": 1,
+  "reason": "Audit create test",
+  "dueDate": "2026-09-20",
+  "status": "Pending",
+  "notes": "Testing CREATE audit log"
+}
+
+###
+PUT http://localhost:8080/api/follow-up-requests/6?userId=1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "departmentId": 1,
+  "reason": "Audit update test",
+  "dueDate": "2026-09-22",
+  "status": "Completed",
+  "notes": "Testing UPDATE audit log"
+}
+###
+DELETE http://localhost:8080/api/follow-up-requests/6?userId=1
+###
+
+GET http://localhost:8080/api/audit-logs
+
+###
+GET http://localhost:8080/api/audit-logs/search/action?action=CREATE
+
+###
+GET http://localhost:8080/api/audit-logs/search/action?action=UPDATE
+
+###
+GET http://localhost:8080/api/audit-logs/search/action?action=DELETE
+
+###
+###
+POST http://localhost:8080/api/communications
+Content-Type: application/json
+
+{
+  "followUpId": 5,
+  "templateId": 1,
+  "createdBy": 1,
+  "status": "Sent"
+}
+
+###
+POST http://localhost:8080/api/email-templates
+Content-Type: application/json
+
+{
+  "departmentId": 1,
+  "name": "Cardiology Follow-Up",
+  "subjectTemplate": "Cardiology Follow-Up Reminder",
+  "bodyTemplate": "Please contact the cardiology department to schedule your follow-up appointment.",
+  "active": true
+}
+###
+GET http://localhost:8080/api/communications
+###
+GET http://localhost:8080/api/follow-up-requests/search?status=Pending
+###
+GET http://localhost:8080/api/follow-up-requests/5
+###
+GET http://localhost:8080/api/email-templates/search?departmentName=Cardiology
+
+###
+GET http://localhost:8080/api/communications
+###
+GET http://localhost:8080/api/patients
+###
+GET http://localhost:8080/api/email-templates/search?departmentName=Cardiology
+###
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "userName": "staff1",
+  "password": "Password123!!",
+  "role": "Staff",
+  "active": true
+}
+
+
+
+
+
+
+

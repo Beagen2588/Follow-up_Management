@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Email Template Management</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Follow-Up Queue</a>
+    <a href="patients.html">Patients</a>
+    <a href="templates.html">Email Templates</a>
+    <a href="audit.html">Audit Logs</a>
+
+    <form method="post" action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+
+<h1>Email Template Management</h1>
+
+
+<div class="template-actions">
+
+    <button type="button" id="showAddTemplateButton">
+        + Add New Template
+    </button>
+
+</div>
+
+
+<div id="templateForm" class="template-form-card" style="display: none;">
+
+    <h2 id="templateFormTitle">Add Email Template</h2>
+
+    <label for="templateDepartment">Department:</label>
+    <select id="templateDepartment">
+        <option value="">Select Department</option>
+    </select>
+
+    <label for="templateName">Template Name:</label>
+    <input type="text" id="templateName">
+
+    <label for="templateSubject">Subject:</label>
+    <input type="text" id="templateSubject">
+
+    <label for="templateBody">Body:</label>
+    <textarea
+            id="templateBody"
+            rows="8">
+    </textarea>
+
+    <label for="templateActive">Active:</label>
+    <select id="templateActive">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+    </select>
+
+    <div class="form-buttons">
+
+        <button type="button" id="saveTemplateButton">
+            Save Template
+        </button>
+
+        <button
+                type="button"
+                id="cancelTemplateButton"
+                class="btn-secondary">
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="template-search-card">
+
+    <h2>Search Email Templates</h2>
+
+    <div class="template-search-fields">
+
+        <div>
+            <label for="searchDepartment">Department:</label>
+
+            <select id="searchDepartment">
+                <option value="">Select Department</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="form-buttons">
+
+        <button type="button" id="searchTemplateButton">
+            Search
+        </button>
+
+        <button
+                type="button"
+                id="showAllTemplatesButton"
+                class="btn-secondary">
+            Show All
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="template-results">
+
+    <h2>Templates</h2>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Subject</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody id="templateResults">
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<script src="templates.js"></script>
+
+</body>
+
+</html>

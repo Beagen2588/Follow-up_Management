@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Management</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Follow-Up Queue</a>
+    <a href="patients.html">Patients</a>
+    <a href="templates.html">Email Template Management</a>
+    <a href="audit.html">Audit Logs</a>
+
+    <form method="post" action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+
+<h1>Patient Management</h1>
+
+
+<div class="patient-actions">
+
+    <button type="button" id="showAddPatientButton">
+        + Add New Patient
+    </button>
+
+</div>
+
+
+<div class="patient-search-card">
+
+    <h2>Patient Search</h2>
+
+    <div class="search-fields">
+
+        <div>
+            <label for="LastNameSearch">Last Name:</label>
+            <input type="text" id="LastNameSearch">
+        </div>
+
+        <div>
+            <label for="BirthDateSearch">Birth Date:</label>
+            <input type="date" id="BirthDateSearch">
+        </div>
+
+    </div>
+
+    <button type="button" id="SearchButton">
+        Search Patients
+    </button>
+
+</div>
+
+
+<div id="addPatientForm" class="patient-form-card" style="display: none;">
+
+    <h2>Add Patient</h2>
+
+    <label for="patientFirstName">First Name:</label>
+    <input type="text" id="patientFirstName">
+
+    <label for="patientLastName">Last Name:</label>
+    <input type="text" id="patientLastName">
+
+    <label for="patientBirthDate">Birth Date:</label>
+    <input type="date" id="patientBirthDate">
+
+    <label for="patientEmail">Email:</label>
+    <input type="email" id="patientEmail">
+
+    <label for="patientPhone">Phone:</label>
+    <input type="text" id="patientPhone">
+
+    <div class="form-buttons">
+
+        <button type="button" id="savePatientButton">
+            Save Patient
+        </button>
+
+        <button type="button" id="cancelAddPatient" class="btn-secondary">
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="patient-results">
+
+    <h2>Patient Results</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Birth Date</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody id="patientSearchResults">
+        </tbody>
+    </table>
+
+</div>
+
+
+<script src="patient.js"></script>
+
+</body>
+
+</html>

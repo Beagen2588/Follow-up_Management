@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Follow-Up Management</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+
+<nav>
+    <a href="index.html">Follow-Up Queue</a>
+    <a href="patients.html">Patients</a>
+    <a href="templates.html" id="templatesLink">Email Template Management</a>
+    <a href="audit.html" id="auditLink">Audit Logs</a>
+
+    <form method="post" action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+<h1>Patient Follow-Up Queue</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Patient</th>
+        <th>Department</th>
+        <th>Reason</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody id="followUpTableBody">
+    </tbody>
+</table>
+
+
+
+<div id="followUpDetails" style="display: none;">
+
+    <h2>Follow-Up Details</h2>
+
+    <div class="follow-up-details-grid">
+
+        <div class="follow-up-info">
+
+            <p><strong>Patient:</strong> <span id="detailPatient"></span></p>
+            <p><strong>Department:</strong> <span id="detailDepartment"></span></p>
+            <p><strong>Reason:</strong> <span id="detailReason"></span></p>
+            <p><strong>Due Date:</strong> <span id="detailDueDate"></span></p>
+            <p><strong>Status:</strong> <span id="detailStatus"></span></p>
+            <p><strong>Notes:</strong> <span id="detailNotes"></span></p>
+
+        </div>
+
+        <div class="email-section">
+
+            <label for="templateSelect">Email Template:</label>
+
+            <select id="templateSelect">
+                <option value="">Select a template</option>
+            </select>
+
+            <div id="emailPreview" style="display: none;">
+
+                <h3>Email Preview</h3>
+
+                <p>
+                    <strong>To:</strong>
+                    <span id="previewRecipient"></span>
+                </p>
+
+                <p>
+                    <strong>Subject:</strong>
+                    <span id="previewSubject"></span>
+                </p>
+
+                <p><strong>Body:</strong></p>
+
+                <p id="previewBody"></p>
+
+                <button type="button" id="createCommunicationButton">
+                    Prepare Email
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<h2>Create New Follow-Up</h2>
+
+<button type="button" id="toggleCreateFollowUpButton">
+    + Create New Follow-Up
+</button>
+
+
+<div id="createFollowUpSection" style="display: none;">
+
+    <h3>Find Patient</h3>
+
+    <label for="patientLastNameSearch">
+        Last Name:
+    </label>
+
+    <input
+            type="text"
+            id="patientLastNameSearch"
+    >
+
+
+    <label for="patientBirthDateSearch">
+        Birth Date:
+    </label>
+
+    <input
+            type="date"
+            id="patientBirthDateSearch"
+    >
+
+
+    <button type="button" id="patientSearchButton">
+        Search Patients
+    </button>
+
+
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>Select</th>
+            <th>Name</th>
+            <th>Birth Date</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+
+        <tbody id="patientSearchResults">
+        </tbody>
+
+    </table>
+
+
+
+
+    <h3>Follow-Up Information</h3>
+
+
+    <label for="departmentSelect">
+        Department:
+    </label>
+
+    <select id="departmentSelect">
+        <option value="">
+            Select Department
+        </option>
+    </select>
+
+
+    <label for="followUpReason">
+        Reason:
+    </label>
+
+    <input
+            type="text"
+            id="followUpReason"
+    >
+
+
+    <label for="followUpDueDate">
+        Due Date:
+    </label>
+
+    <input
+            type="date"
+            id="followUpDueDate"
+    >
+
+
+    <label for="followUpNotes">
+        Notes:
+    </label>
+
+    <textarea
+            id="followUpNotes"
+            rows="4"
+            cols="40">
+    </textarea>
+
+
+    <button type="button" id="createFollowUpButton">
+        Create Follow-Up Request
+    </button>
+
+</div>
+
+
+<script src="script.js?v=3"></script>
+
+</body>
+
+</html>

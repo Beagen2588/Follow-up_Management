@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Audit Logs</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Follow-Up Queue</a>
+    <a href="patients.html">Patients</a>
+    <a href="templates.html">Email Templates</a>
+    <a href="audit.html">Audit Logs</a>
+
+    <form method="post" action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+
+<h1>Audit Logs</h1>
+
+
+<div class="audit-search-card">
+
+    <h2>Audit Activity Report</h2>
+    <p>
+        <strong>Report Generated:</strong>
+        <span id="reportGeneratedAt"></span>
+    </p>
+
+    <div class="audit-search-grid">
+
+        <div class="audit-search-group">
+            <label for="auditUserSearch">User Name:</label>
+
+            <input type="text" id="auditUserSearch">
+
+            <button type="button" id="searchAuditByUserButton">
+                Search by User
+            </button>
+        </div>
+
+
+        <div class="audit-search-group">
+            <label for="auditActionSearch">Action:</label>
+
+            <select id="auditActionSearch">
+                <option value="">Select Action</option>
+                <option value="Create">Create</option>
+                <option value="Update">Update</option>
+                <option value="Delete">Delete</option>
+            </select>
+
+            <button type="button" id="searchAuditByActionButton">
+                Search by Action
+            </button>
+        </div>
+
+
+        <div class="audit-search-group audit-date-search">
+
+            <label for="auditStartDate">Start Date:</label>
+            <input type="date" id="auditStartDate">
+
+            <label for="auditEndDate">End Date:</label>
+            <input type="date" id="auditEndDate">
+
+            <button type="button" id="searchAuditByDateButton">
+                Search by Date
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-buttons">
+
+        <button
+                type="button"
+                id="showAllAuditLogsButton"
+                class="btn-secondary">
+            Show All Logs
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="audit-results">
+
+    <h2>Audit Log Results</h2>
+
+    <table>
+
+        <thead>
+        <tr>
+            <th>User</th>
+            <th>Action</th>
+            <th>Entity Type</th>
+            <th>Entity ID</th>
+            <th>Reason</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+
+        <tbody id="auditLogResults">
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<script src="audit.js"></script>
+
+</body>
+
+</html>

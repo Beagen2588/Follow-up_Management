@@ -167,11 +167,12 @@ function loadPatients(lastName, birthDate){
         });
 
 }
-function editPatient(){
+function editPatient(id){
     editingPatientId = id;
     fetch(`/api/patients/${id}`)
         .then(response => response.json())
         .then(data => {
+           console.log("Patient returned by ID:", data);
             document.getElementById("addPatientForm").style.display = "block";
             document.getElementById("patientFirstName").value = data.firstName;
             document.getElementById("patientLastName").value = data.lastName;

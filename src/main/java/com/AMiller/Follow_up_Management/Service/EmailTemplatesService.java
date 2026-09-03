@@ -35,7 +35,7 @@ public class EmailTemplatesService {
     }
 
     public List<EmailTemplates> searchEmailTemplates(String departmentName) {
-        return emailTemplatesRepository.findByDepartmentId_nameAndActiveTrue(departmentName);
+        return emailTemplatesRepository.findByDepartmentId_name(departmentName);
     }
 
     public List<EmailTemplates> getEmailTemplates() {
@@ -163,9 +163,39 @@ public class EmailTemplatesService {
         template.setActive(false);
 
         EmailTemplates savedTemplate = emailTemplatesRepository.save(template);
-        auditLogsService.addAuditLog(users.get().getId(),"EmailTemplate", savedTemplate.getId(),"Delete","Deleted EmailTemplate");
+        auditLogsService.addAuditLog(users.get().getId(),"EmailTemplate", savedTemplate.getId(),"Deactivated","Deactivated EmailTemplate");
         return savedTemplate;
     }
+
+    public EmailTemplates activateTemplate(int id,  String userName) {
+        Optional<Users> users = usersRepository.findByUserName(userName);
+
+        if(users.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "User not found");
+
+        }
+
+        Optional<EmailTemplates> optionalTemplate =
+                emailTemplatesRepository.findById(id);
+
+        if (optionalTemplate.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Email template not found"
+            );
+        }
+
+        EmailTemplates template = optionalTemplate.get();
+
+        template.setActive(true);
+
+        EmailTemplates savedTemplate = emailTemplatesRepository.save(template);
+        auditLogsService.addAuditLog(users.get().getId(),"EmailTemplate", savedTemplate.getId(),"Reactivate","Reactivated EmailTemplate");
+        return savedTemplate;
+    }
+
 
 
 

@@ -26,6 +26,12 @@ public class PatientController {
         return patientService.getAllPatients();
     }
 
+    @GetMapping("/{id}")
+    public Patient getPatientById(@PathVariable int id){
+        return patientService.getPatientById(id);
+    }
+
+
     @PostMapping
     public Patient addNewPatient(@RequestBody Patient patient, Authentication authentication){
         return patientService.addNewPatient(patient, authentication.getName());

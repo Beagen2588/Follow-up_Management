@@ -53,6 +53,7 @@ function loadFollowUpRequests(url) {
                     <td>${followUpRequest.reason}</td>
                     <td>${formattedDueDate}</td>
                     <td>${followUpRequest.status}</td>
+                    <td>${followUpRequest.notes}</td>
                     <td> <button onclick="viewFollowUp(${followUpRequest.id})">View</button>
                     <button onclick="cancelFollowUp(${followUpRequest.id})">Cancel</button></td>
                 `;
@@ -332,6 +333,10 @@ document.getElementById("createFollowUpButton")
 
                 selectedPatient.checked = false;
 
+
+                document.getElementById("patientLastNameSearch").value = "";
+                document.getElementById("patientBirthDateSearch").value = "";
+                document.getElementById("patientSearchResults").innerHTML = "";
                 document.getElementById("departmentSelect").value = "";
                 document.getElementById("followUpReason").value = "";
                 document.getElementById("followUpDueDate").value = "";

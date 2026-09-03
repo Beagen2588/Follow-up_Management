@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -120,5 +121,13 @@ public class PatientService {
 
     public List<Patient> searchByLastNameBirthDate(String lastName, LocalDate birthDate) {
         return patientRepository.findByLastNameAndBirthDateAndActiveTrue(lastName, birthDate);
+    }
+
+    public Patient getPatientById(int id) {
+        Optional<Patient>  existingPatient = patientRepository.findById(id);
+        if(existingPatient.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found");
+        }
+        return existingPatient.get();
     }
 }

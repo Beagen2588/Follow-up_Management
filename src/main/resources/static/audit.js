@@ -112,3 +112,14 @@ document.getElementById("showAllAuditLogsButton")
 
         loadAuditLogs("/api/audit-logs");
     });
+
+document.getElementById("clearSearchButton")
+    .addEventListener("click", function () {
+
+        document.getElementById("auditUserSearch").value = "";
+        document.getElementById("auditActionSearch").value = "";
+        document.getElementById("auditStartDate").value = "";
+        document.getElementById("auditEndDate").value = "";
+
+        loadAuditLogs("/api/audit-logs");
+    });

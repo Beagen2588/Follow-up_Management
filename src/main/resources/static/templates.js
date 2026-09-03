@@ -73,8 +73,11 @@ function loadTemplates(url) {
 
             const templateResults =
                 document.getElementById("templateResults");
+            const inactiveResults=
+                document.getElementById("inactiveTemplateResults");
 
             templateResults.innerHTML = "";
+            inactiveResults.innerHTML = "";
 
 
             data.forEach(template => {
@@ -82,8 +85,8 @@ function loadTemplates(url) {
                 const row =
                     document.createElement("tr");
 
-
-                row.innerHTML = `
+                if(template.active) {
+                    row.innerHTML = `
                     <td>${template.name}</td>
 
                     <td>${template.departmentId.name}</td>
@@ -118,7 +121,32 @@ function loadTemplates(url) {
                 `;
 
 
-                templateResults.appendChild(row);
+                    templateResults.appendChild(row);
+                }
+                else{
+                    row.innerHTML = `
+            <td>${template.name}</td>
+            <td>${template.departmentId.name}</td>
+            <td>${template.subjectTemplate}</td>
+            <td>Inactive</td>
+            <td>
+                <button
+                    type="button"
+                    onclick="reactivateTemplate(${template.id})">
+                    Reactivate
+                </button>
+
+                <button
+                    type="button"
+                    onclick="deleteTemplate(${template.id})">
+                    Delete
+                </button>
+            </td>
+        `;
+
+                    inactiveResults.appendChild(row);
+                }
+
             });
         })
         .catch(error => {
@@ -174,8 +202,7 @@ document.getElementById("saveTemplateButton")
         const bodyTemplate =
             document.getElementById("templateBody").value;
 
-        const active =
-            document.getElementById("templateActive").value === "true";
+        const active = true;
 
 
         if (!departmentId) {
@@ -314,8 +341,6 @@ function editTemplate(id) {
             document.getElementById("templateBody").value =
                 template.bodyTemplate;
 
-            document.getElementById("templateActive").value =
-                String(template.active);
         })
         .catch(error => {
 
@@ -471,5 +496,54 @@ function clearTemplateForm() {
 
     document.getElementById("templateBody").value = "";
 
-    document.getElementById("templateActive").value = "true";
+}
+
+function reactivateTemplate(id){
+    const confirmed =
+        confirm(
+            "Are you sure you want to activate this email template?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    fetch(`/api/email-templates/${id}/activate`, {
+        method: "PUT"
+    })
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error(
+                    "Email template could not be activated."
+                );
+            }
+
+            return response.json();
+        })
+        .then(data => {
+
+            console.log(
+                "Template activated:",
+                data
+            );
+
+            alert(
+                "Email template activated successfully."
+            );
+
+            loadTemplates("/api/email-templates");
+        })
+        .catch(error => {
+
+            console.error(
+                "Error deactivating template:",
+                error
+            );
+
+            alert(error.message);
+        });
+
 }

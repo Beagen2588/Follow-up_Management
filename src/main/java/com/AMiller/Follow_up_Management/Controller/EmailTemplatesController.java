@@ -58,4 +58,10 @@ public class EmailTemplatesController {
         return emailTemplatesService.searchEmailTemplates(departmentName);
     }
 
+    @PutMapping("/{id}/activate")
+        public EmailTemplates activateTemplate ( @PathVariable int id, Authentication authentication){
+
+            return emailTemplatesService.activateTemplate(id, authentication.getName());
+        }
+
 }

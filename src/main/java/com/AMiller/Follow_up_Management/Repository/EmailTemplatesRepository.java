@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface EmailTemplatesRepository extends JpaRepository<EmailTemplates, Integer> {
     List<EmailTemplates> findByDepartmentId_nameAndActiveTrue(String departmentName);
+    List<EmailTemplates> findByDepartmentId_name(String departmentName);
 }

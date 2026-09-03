@@ -112,6 +112,11 @@ document.getElementById("savePatientButton")
                     console.log("patient updated:", data);
                     alert("patient updated successfully.");
                     clearFormFields();
+
+                    document.getElementById("LastNameSearch").value = "";
+                    document.getElementById("BirthDateSearch").value = "";
+
+                    document.getElementById("patientSearchResults").innerHTML = "";
                 })
                 .catch(error => {
                     console.error("Error updating patient:", error);

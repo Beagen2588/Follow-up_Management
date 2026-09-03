@@ -74,9 +74,8 @@ public class PatientService {
              existing.setEmail(patient.getEmail());
              existing.setPhone(patient.getPhone());
              existing.setBirthDate(patient.getBirthDate());
-             existing.setActive(patient.isActive());
              Patient savedPatient = patientRepository.save(existing);
-             auditLogsService.addAuditLog(existing.getId(),"Patient", savedPatient.getId(), "Update","Patient updated");
+             auditLogsService.addAuditLog(users.get().getId(),"Patient", savedPatient.getId(), "Update","Patient updated");
              return savedPatient;
         }
         else {

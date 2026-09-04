@@ -340,6 +340,11 @@ function editTemplate(id) {
 
             document.getElementById("templateBody").value =
                 template.bodyTemplate;
+            document.getElementById("templateForm")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
 
         })
         .catch(error => {

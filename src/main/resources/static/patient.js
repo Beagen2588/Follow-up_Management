@@ -149,6 +149,11 @@ function loadPatients(lastName, birthDate){
             const patientSearchResults = document.getElementById("patientSearchResults");
             patientSearchResults.innerHTML = "";
 
+            if(data.length === 0){
+                alert("Patient not found. Please make sure you have the correct information")
+                return;
+            }
+
 
             data.forEach(patient => {
 

@@ -103,6 +103,9 @@ document.getElementById("savePatientButton")
                 body: JSON.stringify(patientData)
             })
                 .then(response => {
+                    if(response.status === 409){
+                        throw new Error("A patient with the same information already exists")
+                    }
                     if (!response.ok) {
                         throw new Error("Patient could not be created");
                     }
@@ -120,6 +123,7 @@ document.getElementById("savePatientButton")
                 })
                 .catch(error => {
                     console.error("Error updating patient:", error);
+                    alert(error.message);
                 });
 
         }

@@ -33,7 +33,7 @@ function loadFollowUpRequests(url) {
                 }
                 const row = document.createElement("tr");
 
-                const dueDate = new Date(followUpRequest.dueDate);
+                const dueDate = parseLocalDate(followUpRequest.dueDate);
                 const formattedDueDate = dueDate.toLocaleDateString();
 
                 const today = new Date();
@@ -86,7 +86,7 @@ function viewFollowUp(id){
 
             loadEmailTemplates(followUpRequest.departmentId.name);
 
-            const dueDate = new Date(followUpRequest.dueDate);
+            const dueDate = parseLocalDate(followUpRequest.dueDate);
 
             document.getElementById("detailDueDate").textContent =
                 dueDate.toLocaleDateString();
@@ -429,6 +429,16 @@ document.getElementById("toggleCreateFollowUpButton")
     });
 loadDepartments();
 
+function parseLocalDate(dateString) {
+    const dateOnly = dateString.substring(0, 10);
+    const [year, month, day] = dateOnly.split("-");
+
+    return new Date(
+        Number(year),
+        Number(month) - 1,
+        Number(day)
+    );
+}
 
 
 

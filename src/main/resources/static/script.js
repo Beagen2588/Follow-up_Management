@@ -19,7 +19,7 @@ function loadFollowUpRequests(url) {
 
             const tableBody = document.getElementById("followUpTableBody");
 
-            // Clear the existing rows before displaying new results
+
             tableBody.innerHTML = "";
 
             data.sort((a,b) => {
@@ -436,7 +436,7 @@ function parseLocalDate(dateString) {
     return new Date(
         Number(year),
         Number(month) - 1,
-        Number(day)
+        Number(day) + 1,
     );
 }
 

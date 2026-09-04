@@ -6,6 +6,8 @@ import com.AMiller.Follow_up_Management.Service.AuditLogsService;
 import com.AMiller.Follow_up_Management.entities.AuditLogs;
 import org.springframework.cglib.core.Local;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,8 +24,8 @@ public class AuditLogsController {
     }
 
     @GetMapping
-    public List<AuditLogs> findAllLogs() {
-        return auditLogsService.findAll();
+    public Page<AuditLogs> findAllLogs(@RequestParam (defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size ) {
+        return auditLogsService.findAll(page,size);
     }
 
     @GetMapping("/{id}")
@@ -32,18 +34,18 @@ public class AuditLogsController {
     }
 
     @GetMapping("/search/user")
-    public List<AuditLogs> searchByUser(@RequestParam String userName) {
-        return auditLogsService.searchByUser(userName);
+    public Page<AuditLogs> searchByUser(@RequestParam String userName,@RequestParam (defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size ) {
+        return auditLogsService.searchByUser(userName,page,size);
     }
 
     @GetMapping("/search/action")
-    public List<AuditLogs> searchByAction(@RequestParam String action) {
-        return auditLogsService.searchByAction(action);
+    public Page<AuditLogs> searchByAction(@RequestParam String action,@RequestParam (defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size ) {
+        return auditLogsService.searchByAction(action,page,size);
     }
 
     @GetMapping("/search/date")
-    public List<AuditLogs> searchByDate(@RequestParam LocalDateTime start, @RequestParam LocalDateTime end) {
-        return auditLogsService.searchByDate(start,end);
+    public Page<AuditLogs> searchByDate(@RequestParam LocalDateTime start, @RequestParam LocalDateTime end,@RequestParam (defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size ) {
+        return auditLogsService.searchByDate(start,end,page,size);
     }
 
 

@@ -21,9 +21,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/login.html",
-                                "/login.js",
-                                "/styles.css",
-                                "/images/**"
+                                "/styles.css"
+
+
 
                         ).permitAll()
 
@@ -53,6 +53,8 @@ public class SecurityConfig {
                 .loginPage("/login.html")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/index.html")
+                .failureUrl("/login.html?error=true")
+
                         .permitAll()
                 )
                 .build();

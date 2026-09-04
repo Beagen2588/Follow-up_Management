@@ -1,3 +1,7 @@
+let currentPage = 0;
+const pageSize = 20;
+let baseAuditUrl = "/api/audit-logs"
+let currentAuditUrl = baseAuditUrl;
 function loadAuditLogs(url) {
 
     fetch(url)
@@ -11,15 +15,20 @@ function loadAuditLogs(url) {
         })
         .then(data => {
 
-            document.getElementById("reportGeneratedAt").textContent = new Date().toLocaleString();
+            document.getElementById("reportGeneratedAt").textContent =
+                new Date().toLocaleString();
 
             const auditLogResults =
                 document.getElementById("auditLogResults");
 
             auditLogResults.innerHTML = "";
 
-            data.forEach(log => {
+                let logs;
+                logs = data.content;
+                currentPage = data.number;
+                updatePagination(data);
 
+            logs.forEach(log =>{
                 const row = document.createElement("tr");
 
                 const createdAt =
@@ -42,6 +51,39 @@ function loadAuditLogs(url) {
             alert(error.message);
         });
 }
+function updatePagination(data) {
+
+    document.getElementById("pageInformation").textContent =
+        `Page ${data.number + 1} of ${data.totalPages}`;
+
+    document.getElementById("previousPageButton").disabled =
+        data.first;
+
+    document.getElementById("nextPageButton").disabled =
+        data.last;
+}
+document.getElementById("previousPageButton")
+    .addEventListener("click", function () {
+
+        if (currentPage > 0) {
+
+            const separator = currentAuditUrl.includes("?") ? "&" : "?";
+            loadAuditLogs(
+                `${currentAuditUrl}${separator}page=${currentPage - 1}&size=${pageSize}`
+            );
+        }
+    });
+
+
+document.getElementById("nextPageButton")
+    .addEventListener("click", function () {
+
+        const separator = currentAuditUrl.includes("?") ? "&" : "?";
+        loadAuditLogs(
+            `${currentAuditUrl}${separator}page=${currentPage + 1}&size=${pageSize}`
+
+        );
+    });
 
 
 
@@ -57,9 +99,12 @@ document.getElementById("searchAuditByUserButton")
             alert("Please enter a user name.");
             return;
         }
+        currentPage = 0;
+
+        currentAuditUrl = `${baseAuditUrl}/search/user?userName=${encodeURIComponent(userName)}`
 
         loadAuditLogs(
-            `/api/audit-logs/search/user?userName=${encodeURIComponent(userName)}`
+            `${currentAuditUrl}&page=${currentPage}&size=${pageSize}`
         );
     });
 
@@ -73,9 +118,14 @@ document.getElementById("searchAuditByActionButton")
             alert("Please select an action.");
             return;
         }
+        currentPage = 0;
+
+
+        currentAuditUrl = `${baseAuditUrl}/search/action?action=${encodeURIComponent(action)}`
+
 
         loadAuditLogs(
-            `/api/audit-logs/search/action?action=${encodeURIComponent(action)}`
+            `${currentAuditUrl}&page=${currentPage}&size=${pageSize}`
         );
     });
 
@@ -95,8 +145,12 @@ document.getElementById("searchAuditByDateButton")
         const start = startDate + "T00:00:00";
         const end = endDate + "T23:59:59"
 
+        currentPage = 0;
+
+        currentAuditUrl = `${baseAuditUrl}/search/date?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`
+
         loadAuditLogs(
-            `/api/audit-logs/search/date?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`
+            `${currentAuditUrl}&page=${currentPage}&size=${pageSize}`
         );
     });
 
@@ -110,7 +164,13 @@ document.getElementById("showAllAuditLogsButton")
         document.getElementById("auditStartDate").value = "";
         document.getElementById("auditEndDate").value = "";
 
-        loadAuditLogs("/api/audit-logs");
+
+        currentPage = 0;
+        currentAuditUrl = baseAuditUrl;
+
+        loadAuditLogs(
+            `${currentAuditUrl}?page=${currentPage}&size=${pageSize}`
+        );
     });
 
 document.getElementById("clearSearchButton")
@@ -121,5 +181,10 @@ document.getElementById("clearSearchButton")
         document.getElementById("auditStartDate").value = "";
         document.getElementById("auditEndDate").value = "";
 
-        loadAuditLogs("/api/audit-logs");
+        currentPage = 0;
+        currentAuditUrl = baseAuditUrl;
+
+        loadAuditLogs(
+            `${currentAuditUrl}?page=${currentPage}&size=${pageSize}`
+        );
     });

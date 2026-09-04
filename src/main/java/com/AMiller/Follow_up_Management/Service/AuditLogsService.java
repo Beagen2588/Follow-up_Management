@@ -7,6 +7,10 @@ import com.AMiller.Follow_up_Management.entities.Users;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -23,8 +27,13 @@ public class AuditLogsService {
         this.usersRepository = usersRepository;
     }
 
-    public List<AuditLogs>  findAll() {
-        return auditLogsRepository.findAll();
+    public Page<AuditLogs> findAll(int page, int size) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("createdAt").descending());
+        return auditLogsRepository.findAll(pageable);
     }
 
     public AuditLogs addAuditLog(
@@ -66,16 +75,24 @@ public class AuditLogsService {
         return existingLog.get();
     }
 
-    public List<AuditLogs> searchByUser(String userName) {
-        return auditLogsRepository.findByUserId_UserName(userName);
+    public Page<AuditLogs> searchByUser(String userName, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        return auditLogsRepository.findByUserId_UserName(userName,pageable);
     }
 
-    public List<AuditLogs> searchByAction(String action) {
-        return auditLogsRepository.findByAction(action);
+    public Page<AuditLogs> searchByAction(String action,int page, int size) {
+
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return auditLogsRepository.findByAction(action,pageable);
     }
 
-    public List<AuditLogs> searchByDate(LocalDateTime start, LocalDateTime end) {
-        return auditLogsRepository.findByCreatedAtBetween(start, end);
+    public Page<AuditLogs> searchByDate(LocalDateTime start, LocalDateTime end, int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return auditLogsRepository.findByCreatedAtBetween(start, end,pageable);
     }
 
 

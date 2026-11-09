@@ -7,7 +7,7 @@ A full-stack web application designed to help healthcare facilities manage patie
 - View and process follow-up queues
 - Generate department-specific email communications
 - Track follow-up activity
-- Implemented role-based functionality to distinguish between administrators and standard users. Application features and          permissions are controlled based on the authenticated user's assigned role, ensuring users can access only the functionality     appropriate to their authorization level.
+- Implemented Role-Based Access Control (RBAC) to enforce administrator and standard user permissions, restricting unauthorized    creation, modification, and deletion of application data.
 
 ## Technologies
 - Java and Spring Boot
